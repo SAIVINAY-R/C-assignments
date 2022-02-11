@@ -13,8 +13,15 @@ switch (int.Parse(programNumber))
         var maximumOfNumbers = new MaximumOfNumbers();
         maximumOfNumbers.FindMaximum();
         break;
-    case 3:
+    case 3 :
         var smallestOfNumbers = new SmallestOfNumbers();
         smallestOfNumbers.FindThreeSmallNumbers();
+        break;
+    case 4 :
+        var descendingOrder = new DescendingOrder();
+        descendingOrder.FindDescendingOrder();
+        break;
+    default :
+        Console.WriteLine("Enter Correct Program Number");
         break;
 }
