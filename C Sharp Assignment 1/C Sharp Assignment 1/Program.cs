@@ -13,4 +13,8 @@ switch (int.Parse(programNumber))
         var maximumOfNumbers = new MaximumOfNumbers();
         maximumOfNumbers.FindMaximum();
         break;
+    case 3:
+        var smallestOfNumbers = new SmallestOfNumbers();
+        smallestOfNumbers.FindThreeSmallNumbers();
+        break;
 }
