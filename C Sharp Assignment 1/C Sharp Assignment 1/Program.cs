@@ -1,5 +1,16 @@
 ﻿using C_Sharp_Assignment_1;
 
-var sumOfNumbers = new SumOfNumbers();
+Console.Write("Enter the Program Number : ");
+var programNumber = Console.ReadLine();
 
-sumOfNumbers.Sum();
+switch (int.Parse(programNumber))
+{
+    case 1 :
+        var sumOfNumbers = new SumOfNumbers();
+        sumOfNumbers.Sum();
+        break;
+    case 2 :
+        var maximumOfNumbers = new MaximumOfNumbers();
+        maximumOfNumbers.FindMaximum();
+        break;
+}
