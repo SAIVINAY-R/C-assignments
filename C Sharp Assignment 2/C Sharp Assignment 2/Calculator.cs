@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace C_Sharp_Assignment_2
 {
-    internal class Calculator
+    internal class Calculator : ICalculator
     {
-        public double Result { get; set; }
+        private double Result { get; set; }
         public void Add(int number1, int number2)
         {
             Result = number1 + number2; 
@@ -26,5 +26,15 @@ namespace C_Sharp_Assignment_2
         {
             return Result;
         }
+
+        protected void setResult(double result)
+        {
+            Result = result;
+        }
+
+        public void Power(float baseValue, float power)
+        {
+        }
     }
 }
+// add a set method to set result
