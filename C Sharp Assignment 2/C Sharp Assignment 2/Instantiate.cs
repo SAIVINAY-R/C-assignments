@@ -34,7 +34,7 @@ internal class Instantiate
             {
                 case 1:
                      Console.WriteLine("The Result is {0}", Calculator.GetResult());
-                        break;
+                     break;
                 case 2:
                     Console.WriteLine("Enter 2 Integers : ");
                     number1 = int.Parse(Console.ReadLine());
@@ -55,10 +55,18 @@ internal class Instantiate
                     Calculator.Add(number1, number2);
                     break;
                 case 5:
-                    Console.WriteLine("Enter 2 Numbers : ");
-                    number1 = float.Parse(Console.ReadLine());
-                    number2 = float.Parse(Console.ReadLine());
-                    Calculator.Power(number1, number2);
+                    if (programNumber == 2)
+                    {
+                        Console.WriteLine("Enter 2 Numbers : ");
+                        number1 = float.Parse(Console.ReadLine());
+                        number2 = float.Parse(Console.ReadLine());
+                        Calculator.Power(number1, number2);
+                    }
+                    else
+                        Console.WriteLine("Enter the correct choice");
+                    break;
+                default:
+                        Console.WriteLine("Enter the correct choice");
                         break;
             }
 
