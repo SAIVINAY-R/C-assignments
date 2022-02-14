@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace C_Sharp_Assignment_2
 {
-    internal class AdvancedCalculator : Calculator, ICalculator
+    internal class AdvancedCalculator : Calculator
     {
         public void Power(float baseValue, float exponent)
         {
