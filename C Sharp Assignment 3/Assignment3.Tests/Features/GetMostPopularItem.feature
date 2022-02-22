@@ -4,13 +4,11 @@
 
 
 Scenario: When the OrdersList is not empty
-	Given I am a 'manager'
-	And I select the 'Get the most popular item' Query
-	When the order list is not empty
-	Then the result should be Most Popular Item
+	Given I am a manager
+	When the order list is not empty and selected get most popular item
+	Then the result should be '203 Ok'
 
 Scenario: When the OrdersList is empty
-	Given I am a 'manager'
-	And I select the 'Get the most popular item' Query
-	When the order list is empty
-	Then the result should be Order History is Empty
+	Given I am a manager
+	When the order list is empty and selected get most popular item
+	Then the result should be '203 Error'

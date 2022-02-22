@@ -4,13 +4,11 @@
 
 
 Scenario: When the OrdersList is not empty
-	Given I am a 'manager'
-	And I select the 'Get Last 5 Orders' Query
-	When the order list is not empty
-	Then the result should be last 5 orders
+	Given I am a manager
+	When the order list is not empty and selected Get Last five Orders
+	Then the result should be '202 Ok'
 
 Scenario: When the OrdersList is empty
-	Given I am a 'manager'
-	And I select the 'Get Last 5 Orders' Query
-	When the order list is empty
-	Then the result should be Order History is Empty
+	Given I am a manager
+	When the order list is empty and selected Get Last five Orders
+	Then the result should be '202 Error'

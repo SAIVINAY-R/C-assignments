@@ -3,15 +3,11 @@
 		 As a Restaurant Manager
 
 Scenario: When their is no item below the given price
-	Given I am a 'manager'
-	And I select the 'Get items below the price' 
-	And Enter the price 
-	When their is no item below the given price
-	Then the result should be No Item below the given price
+	Given I am a manager
+	When their is no item below the given price '1'
+	Then the result should be '205 Error'
 
 Scenario: When items below the given price are their
-	Given I am a 'manager'
-	And I select the 'Get items below the price' 
-	And Enter the price
-	When items below the given price are their
-	Then the result should be Items below the given price
+	Given I am a manager
+	When their are items below the given price '30'
+	Then the result should be '205 Ok'

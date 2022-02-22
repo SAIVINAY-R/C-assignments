@@ -4,13 +4,11 @@
 
 
 Scenario: When the OrdersList is not empty
-	Given I am a 'manager'
-	And I select the 'Get the item with highest revenue' Query
-	When the order list is not empty
-	Then the result should be Item with highest revenue
+	Given I am a manager
+	When the order list is not empty and selected the Get the item with highest revenu
+	Then the result should be '204 Ok'
 
 Scenario: When the OrdersList is empty
-	Given I am a 'manager'
-	And I select the 'Get the item with highest revenue' Query
-	When the order list is empty
-	Then the result should be Order History is Empty
+	Given I am a manager
+	When the order list is empty and selected the Get the item with highest revenu
+	Then the result should be '204 Error'

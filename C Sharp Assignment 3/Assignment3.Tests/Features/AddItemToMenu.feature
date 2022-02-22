@@ -3,13 +3,11 @@
 		 As a Restaurant Manager
 
 Scenario: Adding new item to menu
-	Given I am a 'manager'
-	When I select the 'Add Item To Menu' Query
-	And Enter new item name and price
-	Then the result should be New Item added to the Menu
+	Given I am a manager
+	When I select the Add Item To Menu and Enter item name 'Chapathi' and price '35'
+	Then the result should be true
 
 Scenario: Adding already existing item
-	Given I am a 'manager'
-	When I select the 'Add Item To Menu' Query
-	And Enter already existing item name and price
-	Then the result should be Item already exists
+	Given I am a manager
+	When I select the Add Item To Menu and Enter item name 'Dosa' and price '20'
+	Then the result should be false

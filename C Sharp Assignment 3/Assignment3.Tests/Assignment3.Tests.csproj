@@ -21,4 +21,8 @@
     <Folder Include="Support\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\C Sharp Assignment 3\C Sharp Assignment 3.csproj" />
+  </ItemGroup>
+
 </Project>
