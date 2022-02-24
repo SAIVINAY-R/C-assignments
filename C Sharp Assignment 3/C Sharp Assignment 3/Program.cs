@@ -109,7 +109,7 @@ while (true)
     }
     catch (Exception e)
     {
-        Console.WriteLine("Invalid Input {0}", e);
+        Console.WriteLine("Invalid Input");
     }
 
 }
