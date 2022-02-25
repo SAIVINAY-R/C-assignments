@@ -5,9 +5,9 @@
 Scenario: When Movies List is not Empty
 	Given what do want to do '1'
 	When movies list is not empty
-	Then the result should be 'ListofMovies'
+	Then the result should be 'List of Movies'
 
 Scenario: When Movies List is Empty
 	Given what do want to do '1'
 	When movies list is empty
-	Then the result should be 'null'
+	Then the result should be 'Null'

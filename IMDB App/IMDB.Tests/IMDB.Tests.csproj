@@ -18,8 +18,12 @@
   <ItemGroup>
     <Folder Include="Drivers\" />
     <Folder Include="Features\" />
-    <Folder Include="StepDefinitions\" />
     <Folder Include="Support\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IMDB App\IMDB App.csproj" />
+    <ProjectReference Include="..\IMDB.Domain\IMDB.Domain.csproj" />
   </ItemGroup>
 
 </Project>
