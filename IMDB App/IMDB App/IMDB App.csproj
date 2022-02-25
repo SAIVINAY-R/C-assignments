@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IMDB.Domain\IMDB.Domain.csproj" />
+    <ProjectReference Include="..\IMDB.Repository\IMDB.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

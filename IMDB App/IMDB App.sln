@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB App", "IMDB App\IMDB App.csproj", "{21D82AC0-BFAB-480E-9F59-1AB91C097496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Tests", "IMDB.Tests\IMDB.Tests.csproj", "{44FC2345-9612-4221-AE23-FB205E075D9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.Tests", "IMDB.Tests\IMDB.Tests.csproj", "{44FC2345-9612-4221-AE23-FB205E075D9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Domain", "IMDB.Domain\IMDB.Domain.csproj", "{AB32999F-E894-4E01-BA89-AC8EE9353CC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Repository", "IMDB.Repository\IMDB.Repository.csproj", "{61D67B86-7F62-4685-9C04-85FB72567D75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{44FC2345-9612-4221-AE23-FB205E075D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44FC2345-9612-4221-AE23-FB205E075D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44FC2345-9612-4221-AE23-FB205E075D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB32999F-E894-4E01-BA89-AC8EE9353CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB32999F-E894-4E01-BA89-AC8EE9353CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB32999F-E894-4E01-BA89-AC8EE9353CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB32999F-E894-4E01-BA89-AC8EE9353CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61D67B86-7F62-4685-9C04-85FB72567D75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61D67B86-7F62-4685-9C04-85FB72567D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61D67B86-7F62-4685-9C04-85FB72567D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61D67B86-7F62-4685-9C04-85FB72567D75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
