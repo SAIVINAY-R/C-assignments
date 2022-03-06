@@ -7,14 +7,10 @@ using IMDB.Domain;
 
 namespace IMDB.Repository.Interfaces
 {
-    public interface IIMDBRepository
+    public interface IMovieRepository
     {
         public List<Movie> ListMovies();
         public Movie AddMovie(Movie movie);
         public Movie DeleteMovie(Movie movie);
-        public Actor AddActor(Actor actor);
-        public Producer AddProducer(Producer producer);
-        public List<Actor> GetActors();
-        public List<Producer> GetProducerList();
     }
 }

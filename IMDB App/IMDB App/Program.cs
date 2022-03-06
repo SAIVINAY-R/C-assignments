@@ -1,6 +1,4 @@
-﻿using IMDB.Domain;
-using IMDB_App;
-using IMDB_App.Services;
+﻿using IMDB_App.Services;
 
 var iMDBService = new IMDBService();
 Console.Write("\t1) List Movies\n\t2) Add Movie\n\t3) Add Actor\n\t4) Add Producer\n\t5) Delete Movie\n\t6)Exit");
