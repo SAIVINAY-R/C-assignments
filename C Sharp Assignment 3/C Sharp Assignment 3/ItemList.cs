@@ -23,10 +23,9 @@ namespace C_Sharp_Assignment_3
         public void PrintItemsInList()
         {
             int i = 1;
-            foreach (KeyValuePair<string, int> item in _items)
+            foreach (var item in _items)
             {
-                Console.WriteLine("\t{0}. {1} - {2}", i, item.Key, item.Value);
-                i++;
+                Console.WriteLine("\t{0}. {1} - {2}", i++, item.Key, item.Value);
             }
         }
         public int Count()

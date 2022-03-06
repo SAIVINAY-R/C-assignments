@@ -14,6 +14,7 @@ namespace Assignment3.Tests.StepDefinitions
         ItemList menu;
         Customer customer;
         dynamic result;
+        dynamic expectedResult;
         [Given(@"I am a manager")]
         public void GivenIAmAManager()
         {
@@ -52,7 +53,22 @@ namespace Assignment3.Tests.StepDefinitions
         [Then(@"the result should be '([^']*)'")]
         public void ThenTheResultShouldBe(string p0)
         {
-            Assert.Equal(p0, result);
+            if (p0 == "empty list")
+            {
+                Assert.Null(result);
+            }
+            else if (p0 == "list of last 5 orders")
+            {
+                Assert.True(result is List<string>);
+            }
+            else if (p0 == "list of items below the given price")
+            {
+                Assert.True(result is IDictionary<string, int>);
+            }
+            else
+            {
+                Assert.Equal(result, expectedResult);
+            }
         }
 
         [When(@"the order list is empty and selected Get Last five Orders")]
@@ -66,12 +82,14 @@ namespace Assignment3.Tests.StepDefinitions
         {
             menu["Poori"] = 15;
             customer.PlaceAnOrder(1, manager);
+            expectedResult = "Poori";
             result = manager.GetTheMostPopularItem();
         }
 
         [When(@"the order list is empty and selected get most popular item")]
         public void WhenTheOrderListIsEmptyAndSelectedGetMostPopularItem()
         {
+            expectedResult = "No past orders in the Order History";
             result = manager.GetTheMostPopularItem();
         }
         [When(@"the order list is not empty and selected the Get the item with highest revenu")]
@@ -79,12 +97,14 @@ namespace Assignment3.Tests.StepDefinitions
         {
             menu["Poori"] = 15;
             customer.PlaceAnOrder(1, manager);
+            expectedResult = "Poori";
             result = manager.GetTheItemWithHighestRevenue();
         }
 
         [When(@"the order list is empty and selected the Get the item with highest revenu")]
         public void WhenTheOrderListIsEmptyAndSelectedTheGetTheItemWithHighestRevenu()
         {
+            expectedResult = "No past orders in the Order History";
             result = manager.GetTheItemWithHighestRevenue();
         }
         [When(@"their is no item below the given price '([^']*)'")]
@@ -99,7 +119,5 @@ namespace Assignment3.Tests.StepDefinitions
             menu["Dosa"] = 10;
             result = manager.GetItemsBelowThePrice(int.Parse(p0));
         }
-
-
     }
 }

@@ -19,7 +19,7 @@ namespace Assignment3.Tests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class GetMostPopularItemFeature : object, Xunit.IClassFixture<GetMostPopularItemFeature.FixtureData>, System.IDisposable
+    public partial class CustomerFeature : object, Xunit.IClassFixture<CustomerFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace Assignment3.Tests.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "GetMostPopularItem.feature"
+#line 1 "Customer.feature"
 #line hidden
         
-        public GetMostPopularItemFeature(GetMostPopularItemFeature.FixtureData fixtureData, Assignment3_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public CustomerFeature(CustomerFeature.FixtureData fixtureData, Assignment3_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace Assignment3.Tests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "GetMostPopularItem", "\t\t In order to get the most popular item\r\n\t\t As a Restaurant Manager", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Customer", "\t\t In order to place an order\r\n\t\t As a customer of the Resturant", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,15 +80,15 @@ namespace Assignment3.Tests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="When the OrdersList is not empty")]
-        [Xunit.TraitAttribute("FeatureTitle", "GetMostPopularItem")]
-        [Xunit.TraitAttribute("Description", "When the OrdersList is not empty")]
-        public virtual void WhenTheOrdersListIsNotEmpty()
+        [Xunit.SkippableFactAttribute(DisplayName="Placing order When items are available and selected valid item")]
+        [Xunit.TraitAttribute("FeatureTitle", "Customer")]
+        [Xunit.TraitAttribute("Description", "Placing order When items are available and selected valid item")]
+        public virtual void PlacingOrderWhenItemsAreAvailableAndSelectedValidItem()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When the OrdersList is not empty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Placing order When items are available and selected valid item", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -108,28 +108,28 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 6
+ testRunner.Given("I am a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 7
- testRunner.Given("I am a manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("the items are available and user selects an item \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
- testRunner.When("the order list is not empty and selected get most popular item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 9
- testRunner.Then("the result should be \'203 Ok\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should be \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="When the OrdersList is empty")]
-        [Xunit.TraitAttribute("FeatureTitle", "GetMostPopularItem")]
-        [Xunit.TraitAttribute("Description", "When the OrdersList is empty")]
-        public virtual void WhenTheOrdersListIsEmpty()
+        [Xunit.SkippableFactAttribute(DisplayName="Placing order When items are available and selected Invalid item")]
+        [Xunit.TraitAttribute("FeatureTitle", "Customer")]
+        [Xunit.TraitAttribute("Description", "Placing order When items are available and selected Invalid item")]
+        public virtual void PlacingOrderWhenItemsAreAvailableAndSelectedInvalidItem()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When the OrdersList is empty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 11
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Placing order When items are available and selected Invalid item", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 10
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -149,14 +149,55 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 11
+ testRunner.Given("I am a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 12
- testRunner.Given("I am a manager", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("the items are available and user selects an item \'3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 13
- testRunner.When("the order list is empty and selected get most popular item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("the result should be \'0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 14
- testRunner.Then("the result should be \'203 Error\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Placing order When no item is available")]
+        [Xunit.TraitAttribute("FeatureTitle", "Customer")]
+        [Xunit.TraitAttribute("Description", "Placing order When no item is available")]
+        public virtual void PlacingOrderWhenNoItemIsAvailable()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Placing order When no item is available", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 15
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 16
+ testRunner.Given("I am a customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 17
+ testRunner.When("items are not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 18
+ testRunner.Then("the result should be \'-1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -169,12 +210,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                GetMostPopularItemFeature.FeatureSetup();
+                CustomerFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                GetMostPopularItemFeature.FeatureTearDown();
+                CustomerFeature.FeatureTearDown();
             }
         }
     }

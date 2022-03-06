@@ -7,7 +7,7 @@ using C_Sharp_Assignment_3;
 
 namespace Assignment3.Tests.StepDefinitions
 {
-    [Binding, Scope(Feature = "Placing an Order")]
+    [Binding, Scope(Feature = "Customer")]
     internal class CustomerSteps
     {
         ItemList menu;
@@ -38,7 +38,7 @@ namespace Assignment3.Tests.StepDefinitions
         [When(@"items are not available")]
         public void WhenItemsAreNotAvailable()
         {
-            result = customer.PlaceAnOrder(-202, new RestaurantManager(menu));
+            result = customer.PlaceAnOrder(-1, new RestaurantManager(menu));
         }
 
     }

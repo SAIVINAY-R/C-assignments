@@ -8,12 +8,12 @@ namespace C_Sharp_Assignment_3
 {
     public class RestaurantManager
     {
-        private readonly ItemList _Menu;
+        private readonly ItemList _menu;
         private readonly List<string> _orders = new List<string>();
 
         public RestaurantManager(ItemList menu)
         {
-            _Menu = menu;
+            _menu = menu;
         }
 
         public void ReceiveOrder(string order)
@@ -28,51 +28,53 @@ namespace C_Sharp_Assignment_3
 
         public bool AddItemToMenu(string name, int price)
         {
-            return _Menu.TryAdd(name, price);
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                throw new IOException();
+            }
+            if (_menu.TryAdd(name, price) == false)
+            {
+                Console.WriteLine("Item already exists");
+                return false;
+            }
+            return true;
         }
-        public string GetLast5Orders()
+        public List<string> GetLast5Orders()
         {
             var count = this.OrderCount();
             if (count < 1)
             {
-                return "202 Error";
+                Console.WriteLine("No past orders in the Order History");
+                return null;
             }
             else if (count > 5)
             {
                 count = 5;
             }
-            foreach (var item in _orders.TakeLast(count).ToList())
-            {
-                Console.WriteLine(item);
-            }
-
-            return "202 Ok";
-            
+            return _orders.TakeLast(count).ToList();
         }
 
         public string GetTheMostPopularItem()
         {
             if (_orders.Count < 1)
             {
-                return "203 Error";
+                return "No past orders in the Order History";
             }
-            Console.WriteLine(_orders.Max());
-            return "203 Ok";
+            return _orders.Max();
         }
         public string GetTheItemWithHighestRevenue()
         {
             if (_orders.Count < 1)
             {
-                return "204 Error";
-               
+                return "No past orders in the Order History";          
             }
             else
             {
-                var itemWithHighestRevenue = _Menu.GetKeys()[0];
-                foreach (var key in _Menu.GetKeys())
+                var itemWithHighestRevenue = _menu.GetKeys()[0];
+                foreach (var key in _menu.GetKeys())
                 {
-                    int revenue1 = _orders.FindAll(i => i == key).Count * _Menu[key];
-                    int revenue2 = _orders.FindAll(i => i == itemWithHighestRevenue).Count * _Menu[itemWithHighestRevenue];
+                    int revenue1 = _orders.FindAll(i => i == key).Count * _menu[key];
+                    int revenue2 = _orders.FindAll(i => i == itemWithHighestRevenue).Count * _menu[itemWithHighestRevenue];
 
                     if (revenue1 > revenue2)
                     {
@@ -80,24 +82,20 @@ namespace C_Sharp_Assignment_3
                     }
                 }
 
-                Console.WriteLine(itemWithHighestRevenue);
-                return "204 Ok";
+                return itemWithHighestRevenue;
             }
         }
-        public string GetItemsBelowThePrice(int price)
+        public IDictionary<string, int> GetItemsBelowThePrice(int price)
         {
-            var items = _Menu.GetItemsBelow(price);
+            var items = _menu.GetItemsBelow(price);
             if (items.Count() < 1)
             {
-                return "205 Error";
+                Console.WriteLine("No Item below the price {0}", price);
+                return null;
             }
             else
             {
-                foreach (var item in items)
-                {
-                    Console.WriteLine(item.Key + " - " + item.Value);
-                }
-                return "205 Ok";
+                return items;
             }
 
         }

@@ -20,7 +20,7 @@ while (true)
                 int itemNumber;
                 if (menu.Count() == 0)
                 {
-                   itemNumber = -202;
+                   itemNumber = -1;
                 }
                 else
                 {
@@ -29,15 +29,7 @@ while (true)
                     Console.Write("\n>> ");
                     itemNumber = int.Parse(Console.ReadLine());
                 }
-                var result = customer.PlaceAnOrder(itemNumber, manager);
-                if(result == -1)
-                {
-                    Console.WriteLine("\nThere are no items to order!");
-                }
-                else if (result == 0)
-                {
-                    Console.WriteLine("\nInvalid Item");
-                }
+                customer.PlaceAnOrder(itemNumber, manager);
                 break;
             case 2:
                 Console.WriteLine("\n\t1. Add item to menu");
@@ -55,44 +47,38 @@ while (true)
                         Console.WriteLine("\nEnter item name:");
                         Console.Write(">> ");
                         var itemName = Console.ReadLine();
-                        if (String.IsNullOrWhiteSpace(itemName))
-                        {
-                            throw new IOException();
-                        }
                         Console.WriteLine("\nEnter item price:");
                         Console.Write(">> ");
                         int itemPrice = int.Parse(Console.ReadLine());
-                        if (manager.AddItemToMenu(itemName, itemPrice) != true)
-                        {
-                            Console.WriteLine("Item already exists");
-                        }
-                        
+                        manager.AddItemToMenu(itemName, itemPrice);
                         break;
                     case 2:
-                        if (manager.GetLast5Orders() == "202 Error")
+                        var last5orders = manager.GetLast5Orders();
+                        if (last5orders != null)
                         {
-                            Console.WriteLine("No past orders in the Order History");
-                        } 
+                            foreach (var item in last5orders)
+                            {
+                                Console.WriteLine(item);
+                            }
+                        }
                         break;
                     case 3:
-                        if(manager.GetTheMostPopularItem() == "203 Error")
-                        {
-                            Console.WriteLine("No past orders in the Order History");
-                        }
+                        Console.WriteLine(manager.GetTheMostPopularItem());
                         break;
                     case 4:
-                        if(manager.GetTheItemWithHighestRevenue() == "204 Error")
-                        {
-                            Console.WriteLine("No past orders in the Order History");
-                        }
+                        Console.WriteLine(manager.GetTheItemWithHighestRevenue());
                         break;
                     case 5:
                         Console.WriteLine("\nEnter the price:");
                         Console.Write(">> ");
                         int price = int.Parse(Console.ReadLine());
-                        if (manager.GetItemsBelowThePrice(price) == "205 Error")
-                        {                   
-                            Console.WriteLine("No Item below the price {0}", price);
+                        var items = manager.GetItemsBelowThePrice(price);
+                        if (items != null)
+                        {
+                            foreach (var item in items)
+                            {
+                                Console.WriteLine(item.Key + " - " + item.Value);
+                            }
                         }
                         break;
                     default:
@@ -107,7 +93,7 @@ while (true)
         }
 
     }
-    catch (Exception e)
+    catch (Exception)
     {
         Console.WriteLine("Invalid Input");
     }
