@@ -24,7 +24,7 @@ while (true)
                         Console.WriteLine("Plot - {0}", mv.Plot);
                         Console.Write("Actors - ");
                         var actors = String.Join(", ", mv.Actors);
-                        Console.WriteLine(actors.Substring(0,actors.Length - 2));
+                        Console.WriteLine(actors);
                         Console.WriteLine("Producers - {0}", mv.Producer);
                     }
 
