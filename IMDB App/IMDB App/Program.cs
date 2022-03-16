@@ -23,8 +23,7 @@ while (true)
                         Console.WriteLine("{0} ({1})", mv.Name, mv.Year);
                         Console.WriteLine("Plot - {0}", mv.Plot);
                         Console.Write("Actors - ");
-                        var actors = String.Join(", ", mv.Actors);
-                        Console.WriteLine(actors);
+                        Console.WriteLine(String.Join(", ", mv.Actors));
                         Console.WriteLine("Producers - {0}", mv.Producer);
                     }
 
@@ -35,6 +34,23 @@ while (true)
                 }
                 break;
             case 2:
+                var Actors = iMDBService.GetActors();
+                var Producers = iMDBService.GetProducerList();
+                if (Actors.Count == 0 && Producers.Count == 0)
+                {
+                    Console.WriteLine("Actors List and Producer List are empty");
+                    break;
+                }
+                else if (Actors.Count == 0)
+                {
+                    Console.WriteLine("Actors List is empty");
+                    break;
+                }
+                else if (Producers.Count == 0)
+                {
+                    Console.WriteLine("Producers List is empty");
+                    break;
+                }
                 Console.Write("Name: ");
                 var name = Console.ReadLine().Trim();
                 Console.Write("Year of release: ");
@@ -43,12 +59,6 @@ while (true)
                 var plot = Console.ReadLine().Trim();
                 Console.Write("\nChoose actor(s) \"eg: 1 2 3\": ");
                 int i = 1;
-                var Actors = iMDBService.GetActors();
-                if (Actors.Count == 0)
-                {
-                    Console.WriteLine("Actors List is empty");
-                    break;
-                }
                 foreach (var actor in Actors)
                 {
                     Console.Write("{0}. {1} ", i++, actor.Name);
@@ -57,12 +67,6 @@ while (true)
                 var actorIDs = Console.ReadLine().Trim().Split();
                 Console.Write("Choose Producer: ");
                 i = 1;
-                var Producers = iMDBService.GetProducerList();
-                if (Producers.Count == 0)
-                {
-                    Console.WriteLine("Producers List is empty");
-                    break;
-                }
                 foreach (var producer in Producers)
                 {
                     Console.Write("{0}. {1} ", i++, producer.Name);

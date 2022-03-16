@@ -8,7 +8,7 @@ using IMDB_App.Services;
 
 namespace IMDB.Tests.StepDefinitions
 {
-    [Binding, Scope(Feature = "ListMovie")]
+    [Binding, Scope(Feature = "Movies")]
     internal class ListMoviesSteps
     {
         IMDBService iMDBService;

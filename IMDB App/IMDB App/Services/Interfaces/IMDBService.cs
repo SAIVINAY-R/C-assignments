@@ -7,7 +7,7 @@ using IMDB.Domain;
 
 namespace IMDB_App.Services.Interfaces
 {
-    internal interface IIMDBService
+    internal interface IMDBService
     {
         public List<Movie> ListMovies();
         public Movie AddMovie(string name, int year, string plot, string[] actorID, int producerID);

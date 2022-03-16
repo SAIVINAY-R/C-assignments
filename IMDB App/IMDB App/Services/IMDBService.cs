@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 using IMDB.Domain;
 using IMDB.Repository;
 using IMDB.Repository.Interfaces;
-using IMDB_App.Services.Interfaces;
 
 namespace IMDB_App.Services
 {
-    public class IMDBService : IIMDBService
+    public class IMDBService : Interfaces.IMDBService
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IActorRepository _actorRepository;

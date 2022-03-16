@@ -19,7 +19,7 @@ namespace IMDB.Tests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ListMovieFeature : object, Xunit.IClassFixture<ListMovieFeature.FixtureData>, System.IDisposable
+    public partial class MoviesFeature : object, Xunit.IClassFixture<MoviesFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace IMDB.Tests.Features
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "ListMovie.feature"
+#line 1 "Movies.feature"
 #line hidden
         
-        public ListMovieFeature(ListMovieFeature.FixtureData fixtureData, IMDB_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public MoviesFeature(MoviesFeature.FixtureData fixtureData, IMDB_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,7 @@ namespace IMDB.Tests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "ListMovie", "\t\t In order to display list og movies\r\n\t\t When user selects List Movies Option", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Movies", "\t\t In order to display list og movies\r\n\t\t When user selects List Movies Option", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -81,7 +81,7 @@ namespace IMDB.Tests.Features
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="When Movies List is not Empty")]
-        [Xunit.TraitAttribute("FeatureTitle", "ListMovie")]
+        [Xunit.TraitAttribute("FeatureTitle", "Movies")]
         [Xunit.TraitAttribute("Description", "When Movies List is not Empty")]
         public virtual void WhenMoviesListIsNotEmpty()
         {
@@ -122,7 +122,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="When Movies List is Empty")]
-        [Xunit.TraitAttribute("FeatureTitle", "ListMovie")]
+        [Xunit.TraitAttribute("FeatureTitle", "Movies")]
         [Xunit.TraitAttribute("Description", "When Movies List is Empty")]
         public virtual void WhenMoviesListIsEmpty()
         {
@@ -169,12 +169,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                ListMovieFeature.FeatureSetup();
+                MoviesFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ListMovieFeature.FeatureTearDown();
+                MoviesFeature.FeatureTearDown();
             }
         }
     }

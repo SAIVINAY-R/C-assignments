@@ -1,4 +1,4 @@
-﻿Feature: ListMovie
+﻿Feature: Movies
 		 In order to display list og movies
 		 When user selects List Movies Option
 
