@@ -120,7 +120,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "producer"});
                 table1.AddRow(new string[] {
                             "testName",
-                            "1000",
+                            "2000",
                             "This is a test plot",
                             "1",
                             "1"});
@@ -173,7 +173,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "producer"});
                 table2.AddRow(new string[] {
                             "testName1",
-                            "1000",
+                            "2000",
                             "testPlot",
                             "1",
                             "1"});
@@ -190,9 +190,9 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="When user tries to add movie without giving valid input")]
         [Xunit.TraitAttribute("FeatureTitle", "AddMovie")]
         [Xunit.TraitAttribute("Description", "When user tries to add movie without giving valid input")]
-        [Xunit.InlineDataAttribute("testName", "1000", "", "1", "1", new string[0])]
+        [Xunit.InlineDataAttribute("testName", "2000", "", "1", "1", new string[0])]
         [Xunit.InlineDataAttribute("testName", "", "testPlot", "1", "1", new string[0])]
-        [Xunit.InlineDataAttribute("", "1000", "testPlot", "1", "1", new string[0])]
+        [Xunit.InlineDataAttribute("", "2000", "testPlot", "1", "1", new string[0])]
         public virtual void WhenUserTriesToAddMovieWithoutGivingValidInput(string name, string year, string plot, string actors, string producer, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

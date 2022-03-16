@@ -23,11 +23,13 @@ while (true)
                         Console.WriteLine("{0} ({1})", mv.Name, mv.Year);
                         Console.WriteLine("Plot - {0}", mv.Plot);
                         Console.Write("Actors - ");
+                        var actors = "";
                         foreach (var actor in mv.Actors)
                         {
-                            Console.Write("{0}, ", actor);
+                            actors += actor + ", ";
                         }
-                        Console.WriteLine("\nProducers - {0}", mv.Producer);
+                        Console.WriteLine(actors.Substring(0,actors.Length - 2));
+                        Console.WriteLine("Producers - {0}", mv.Producer);
                     }
 
                 }
@@ -74,11 +76,6 @@ while (true)
                 Console.WriteLine();
                 var producerID = int.Parse(Console.ReadLine());
                 var movie = iMDBService.AddMovie(name, year, plot, actorIDs, producerID);
-
-                if (movie == null)
-                {
-                    Console.WriteLine("Movie already exists OR Null or Empty Field");
-                }
                 break;
             case 3:
                 Console.Write("Name: ");
@@ -104,10 +101,10 @@ while (true)
                 break;
             case 5:
                 var moviesList = iMDBService.ListMovies();
-                int k = 0;
+                int k = 1;
                 foreach (var item in moviesList)
                 {
-                    Console.WriteLine("{0}. {1}", k, item.Name);
+                    Console.WriteLine("{0}. {1}", k++, item.Name);
                 }
                 int mvID = int.Parse(Console.ReadLine());
                 var movieObj = iMDBService.DeleteMovie(mvID);

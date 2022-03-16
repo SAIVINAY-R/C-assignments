@@ -26,7 +26,7 @@ namespace IMDB.Tests.StepDefinitions
         {
             var temp = iMDBService.AddMovie(
                 "testName",
-                1000,
+                2000,
                 "testplot",
                 "1".Split(),
                 1

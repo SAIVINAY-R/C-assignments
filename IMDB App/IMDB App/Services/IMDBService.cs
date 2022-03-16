@@ -44,22 +44,45 @@ namespace IMDB_App.Services
             foreach (var id in actorID)
             {
                 var actor = Actors.ElementAt(int.Parse(id) - 1).Name;
-                actorsList.Add(actor);
+                if (!actorsList.Contains(actor))
+                {
+                    actorsList.Add(actor);
+                }
             }
             var Producers = _producerRepository.GetProducerList();
             var producerName = Producers.ElementAt(producerID - 1).Name;
             var movie = new Movie() { Name = name, Year = year, Plot = plot, Actors = actorsList, Producer = producerName };
-            if (movie.Actors == null ||
-                String.IsNullOrEmpty(movie.Name) ||
-                String.IsNullOrEmpty(movie.Plot) ||
-                movie.Producer == null ||
-                movie.Year > 9999 || movie.Year < 1000)
+            if (movie.Actors == null)
             {
+                Console.WriteLine("Atleast one actor should be present");
+                return null;
+            }
+            if (String.IsNullOrEmpty(movie.Name))
+            {
+                Console.WriteLine("Movie name is empty");
+                return null;
+            }
+            if (String.IsNullOrEmpty(movie.Plot))
+            {
+                Console.WriteLine("Movie Plot is empty");
+                return null;
+            }
+            if (movie.Producer == null)
+            {
+                Console.WriteLine("Movie should have one producer");
+                return null;
+            } 
+            // the first film was released in 1888 so minimum year is 1888
+            // maximum upcoming movies release date will be planed for 2 years from current year
+            if (movie.Year > (DateTime.Now.Year + 2) || movie.Year < 1888)
+            {
+                Console.WriteLine("Year should be between {0} and {1}", 1888, (DateTime.Now.Year + 2));
                 return null;
             }
             var Movies = _movieRepository.ListMovies();
             if (Movies.FindAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year).Count != 0)
             {
+                Console.WriteLine("Movie already exists");
                 return null;
             }
             return _movieRepository.AddMovie(movie);
@@ -83,7 +106,7 @@ namespace IMDB_App.Services
         public Movie DeleteMovie(int movieID)
         {
             var Movies = _movieRepository.ListMovies();
-            var movie = Movies.ElementAt(movieID);
+            var movie = Movies.ElementAt(movieID - 1);
             if (Movies.FindAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year).Count == 0)
             {
                 return null;
