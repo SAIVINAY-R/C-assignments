@@ -23,11 +23,7 @@ while (true)
                         Console.WriteLine("{0} ({1})", mv.Name, mv.Year);
                         Console.WriteLine("Plot - {0}", mv.Plot);
                         Console.Write("Actors - ");
-                        var actors = "";
-                        foreach (var actor in mv.Actors)
-                        {
-                            actors += actor + ", ";
-                        }
+                        var actors = String.Join(", ", mv.Actors);
                         Console.WriteLine(actors.Substring(0,actors.Length - 2));
                         Console.WriteLine("Producers - {0}", mv.Producer);
                     }
@@ -45,7 +41,7 @@ while (true)
                 int year = int.Parse(Console.ReadLine().Trim());
                 Console.Write("Plot: ");
                 var plot = Console.ReadLine().Trim();
-                Console.Write("\nChoose actor(s): ");
+                Console.Write("\nChoose actor(s) \"eg: 1 2 3\": ");
                 int i = 1;
                 var Actors = iMDBService.GetActors();
                 if (Actors.Count == 0)
@@ -55,8 +51,7 @@ while (true)
                 }
                 foreach (var actor in Actors)
                 {
-                    Console.Write("{0}. {1} ", i, actor.Name);
-                    i++;
+                    Console.Write("{0}. {1} ", i++, actor.Name);
                 }
                 Console.WriteLine();
                 var actorIDs = Console.ReadLine().Trim().Split();
@@ -70,8 +65,7 @@ while (true)
                 }
                 foreach (var producer in Producers)
                 {
-                    Console.Write("{0}. {1} ", i, producer.Name);
-                    i++;
+                    Console.Write("{0}. {1} ", i++, producer.Name);
                 }
                 Console.WriteLine();
                 var producerID = int.Parse(Console.ReadLine());
