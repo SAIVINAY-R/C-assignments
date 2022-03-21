@@ -11,13 +11,13 @@ namespace IMDB.Repository
     public class ActorRepository : IActorRepository
     {
         private readonly List<Actor> _actors = new List<Actor>();
-        public Actor AddActor(Actor actor)
+        public Actor Add(Actor actor)
         {
             _actors.Add(actor);
             return actor;
         }
 
-        public List<Actor> GetActors()
+        public List<Actor> Get()
         {
             return _actors;
         }

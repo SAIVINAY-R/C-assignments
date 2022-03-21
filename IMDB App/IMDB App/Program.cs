@@ -8,6 +8,8 @@ while (true)
     {
         Console.WriteLine("\nWhat do you want to do?");
         int option = int.Parse(Console.ReadLine());
+        var actors = iMDBService.GetActors();
+        var producers = iMDBService.GetProducers();
         if (option == 6)
         {
             break;
@@ -15,7 +17,7 @@ while (true)
         switch (option)
         {
             case 1:
-                var movies = iMDBService.ListMovies();
+                var movies = iMDBService.GetMovies();
                 if (movies != null)
                 {
                     foreach (var mv in movies)
@@ -23,8 +25,8 @@ while (true)
                         Console.WriteLine("{0} ({1})", mv.Name, mv.Year);
                         Console.WriteLine("Plot - {0}", mv.Plot);
                         Console.Write("Actors - ");
-                        Console.WriteLine(String.Join(", ", mv.Actors));
-                        Console.WriteLine("Producers - {0}", mv.Producer);
+                        Console.WriteLine(String.Join(", ", actors.Where(b => mv.ActorIDs.Contains(actors.IndexOf(b) + 1)).Select(b => b.Name)));
+                        Console.WriteLine("Producers - {0}\n", producers.ElementAt(mv.ProducerID - 1).Name);
                     }
 
                 }
@@ -34,19 +36,17 @@ while (true)
                 }
                 break;
             case 2:
-                var Actors = iMDBService.GetActors();
-                var Producers = iMDBService.GetProducerList();
-                if (Actors.Count == 0 && Producers.Count == 0)
+                if (actors.Count == 0 && producers.Count == 0)
                 {
                     Console.WriteLine("Actors List and Producer List are empty");
                     break;
                 }
-                else if (Actors.Count == 0)
+                else if (actors.Count == 0)
                 {
                     Console.WriteLine("Actors List is empty");
                     break;
                 }
-                else if (Producers.Count == 0)
+                else if (producers.Count == 0)
                 {
                     Console.WriteLine("Producers List is empty");
                     break;
@@ -59,7 +59,7 @@ while (true)
                 var plot = Console.ReadLine().Trim();
                 Console.Write("\nChoose actor(s) \"eg: 1 2 3\": ");
                 int i = 1;
-                foreach (var actor in Actors)
+                foreach (var actor in actors)
                 {
                     Console.Write("{0}. {1} ", i++, actor.Name);
                 }
@@ -67,7 +67,7 @@ while (true)
                 var actorIDs = Console.ReadLine().Trim().Split();
                 Console.Write("Choose Producer: ");
                 i = 1;
-                foreach (var producer in Producers)
+                foreach (var producer in producers)
                 {
                     Console.Write("{0}. {1} ", i++, producer.Name);
                 }
@@ -80,11 +80,7 @@ while (true)
                 var actorName = Console.ReadLine().Trim();
                 Console.Write("DOB (dd/MM/yyyy): ");
                 var date = Console.ReadLine().Trim();
-                var actorObj = iMDBService.AddActor(actorName, date);
-                if (actorObj == null)
-                {
-                    Console.WriteLine("Actor already exists");
-                }
+                iMDBService.AddActor(actorName, date);
                 break;
             case 4:
                 Console.Write("Name: ");
@@ -92,24 +88,16 @@ while (true)
                 Console.Write("DOB (dd/MM/yyyy): ");
                 var dob = Console.ReadLine();
                 var producerObj = iMDBService.AddProducer(producerName, dob);
-                if (producerObj == null)
-                {
-                    Console.WriteLine("Actor already exists");
-                }
                 break;
             case 5:
-                var moviesList = iMDBService.ListMovies();
+                var moviesList = iMDBService.GetMovies();
                 int k = 1;
                 foreach (var item in moviesList)
                 {
                     Console.WriteLine("{0}. {1}", k++, item.Name);
                 }
                 int mvID = int.Parse(Console.ReadLine());
-                var movieObj = iMDBService.DeleteMovie(mvID);
-                if (movieObj == null)
-                {
-                    Console.WriteLine("Movie is not in the List");
-                }
+                iMDBService.DeleteMovie(mvID);
                 break;
             default:
                 Console.WriteLine("Invalid Input");

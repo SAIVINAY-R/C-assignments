@@ -8,10 +8,10 @@ namespace IMDB.Domain
 {
     public class Movie
     {
-        public string Name;
-        public int Year;
-        public string Plot;
-        public List<string> Actors = new();
-        public string Producer;
+        public string Name { get; set; }
+        public int Year { get; set; }
+        public string Plot { get; set; }
+        public int[] ActorIDs { get; set; }
+        public int ProducerID { get; set; }
     }
 }

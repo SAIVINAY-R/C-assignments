@@ -11,13 +11,13 @@ namespace IMDB.Repository
     public class ProducerRepository : IProducerRepository
     {
         private readonly List<Producer> _producers = new List<Producer>();
-        public Producer AddProducer(Producer producer)
+        public Producer Add(Producer producer)
         {
             _producers.Add(producer);
             return producer;
         }
 
-        public List<Producer> GetProducerList()
+        public List<Producer> Get()
         {
             return _producers;
         }

@@ -8,7 +8,7 @@ namespace IMDB.Domain
 {
     public class Actor
     {
-        public string Name;
-        public DateOnly DOB;
+        public string Name { get; set; }
+        public DateOnly DOB { get; set; }
     }
 }

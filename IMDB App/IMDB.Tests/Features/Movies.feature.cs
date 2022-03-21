@@ -83,12 +83,14 @@ namespace IMDB.Tests.Features
         [Xunit.SkippableFactAttribute(DisplayName="When Movies List is not Empty")]
         [Xunit.TraitAttribute("FeatureTitle", "Movies")]
         [Xunit.TraitAttribute("Description", "When Movies List is not Empty")]
+        [Xunit.TraitAttribute("Category", "listMovies")]
         public virtual void WhenMoviesListIsNotEmpty()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "listMovies"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When Movies List is not Empty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 5
+#line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -108,14 +110,32 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 6
- testRunner.Given("what do want to do \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 7
- testRunner.When("movies list is not empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have movies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
- testRunner.Then("the result should be \'List of Movies\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I fetch the movies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "year",
+                            "plot",
+                            "actors",
+                            "producer"});
+                table1.AddRow(new string[] {
+                            "movie1",
+                            "2000",
+                            "movie1 plot",
+                            "1",
+                            "1"});
+                table1.AddRow(new string[] {
+                            "movie2",
+                            "1998",
+                            "Movie2 plot",
+                            "1",
+                            "1"});
+#line 9
+ testRunner.Then("List of movies should be like", ((string)(null)), table1, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -129,7 +149,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When Movies List is Empty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 10
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -149,14 +169,245 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
- testRunner.Given("what do want to do \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
+ testRunner.Given("I don\'t have movies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 12
- testRunner.When("movies list is empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
+ testRunner.When("I fetch the movies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 13
- testRunner.Then("the result should be \'Null\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 17
+ testRunner.Then("get movies method should return null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="When user tries to add new movie by giving valid fields")]
+        [Xunit.TraitAttribute("FeatureTitle", "Movies")]
+        [Xunit.TraitAttribute("Description", "When user tries to add new movie by giving valid fields")]
+        [Xunit.TraitAttribute("Category", "addMovie")]
+        public virtual void WhenUserTriesToAddNewMovieByGivingValidFields()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "addMovie"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When user tries to add new movie by giving valid fields", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 20
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "year",
+                            "plot",
+                            "actors",
+                            "producer"});
+                table2.AddRow(new string[] {
+                            "testName",
+                            "2000",
+                            "This is a test plot",
+                            "1",
+                            "1"});
+#line 21
+ testRunner.Given("A movie with", ((string)(null)), table2, "Given ");
+#line hidden
+#line 24
+ testRunner.When("I tries to add movie to the list of movies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "year",
+                            "plot",
+                            "actors",
+                            "producer"});
+                table3.AddRow(new string[] {
+                            "movie1",
+                            "2000",
+                            "movie1 plot",
+                            "1",
+                            "1"});
+                table3.AddRow(new string[] {
+                            "movie2",
+                            "1998",
+                            "Movie2 plot",
+                            "1",
+                            "1"});
+                table3.AddRow(new string[] {
+                            "testName",
+                            "2000",
+                            "This is a test plot",
+                            "1",
+                            "1"});
+#line 25
+ testRunner.Then("List of movies should be like", ((string)(null)), table3, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="When user tries to add already existing movie by giving valid fields")]
+        [Xunit.TraitAttribute("FeatureTitle", "Movies")]
+        [Xunit.TraitAttribute("Description", "When user tries to add already existing movie by giving valid fields")]
+        [Xunit.TraitAttribute("Category", "addMovie")]
+        public virtual void WhenUserTriesToAddAlreadyExistingMovieByGivingValidFields()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "addMovie"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When user tries to add already existing movie by giving valid fields", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "year",
+                            "plot",
+                            "actors",
+                            "producer"});
+                table4.AddRow(new string[] {
+                            "movie1",
+                            "2000",
+                            "movie1 plot",
+                            "1",
+                            "1"});
+#line 33
+ testRunner.Given("A movie with", ((string)(null)), table4, "Given ");
+#line hidden
+#line 36
+ testRunner.When("I tries to add movie to the list of movies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "year",
+                            "plot",
+                            "actors",
+                            "producer"});
+                table5.AddRow(new string[] {
+                            "movie1",
+                            "2000",
+                            "movie1 plot",
+                            "1",
+                            "1"});
+                table5.AddRow(new string[] {
+                            "movie2",
+                            "1998",
+                            "Movie2 plot",
+                            "1",
+                            "1"});
+#line 37
+ testRunner.Then("List of movies should be like", ((string)(null)), table5, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="When user tries to add movie without giving valid input")]
+        [Xunit.TraitAttribute("FeatureTitle", "Movies")]
+        [Xunit.TraitAttribute("Description", "When user tries to add movie without giving valid input")]
+        [Xunit.TraitAttribute("Category", "addMovie")]
+        [Xunit.InlineDataAttribute("testName", "2000", "", "1", "1", new string[0])]
+        [Xunit.InlineDataAttribute("", "2000", "testPlot", "1", "1", new string[0])]
+        [Xunit.InlineDataAttribute("", "2000", "", "1", "1", new string[0])]
+        [Xunit.InlineDataAttribute("testName", "1", "testPlot", "1", "1", new string[0])]
+        public virtual void WhenUserTriesToAddMovieWithoutGivingValidInput(string name, string year, string plot, string actors, string producer, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "addMovie"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("name", name);
+            argumentsOfScenario.Add("year", year);
+            argumentsOfScenario.Add("plot", plot);
+            argumentsOfScenario.Add("actors", actors);
+            argumentsOfScenario.Add("producer", producer);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("When user tries to add movie without giving valid input", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 43
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 44
+ testRunner.Given(string.Format("A movie with Name: \'{0}\' Year: \'{1}\' Plot: \'{2}\' Actors: \'{3}\' and Producer: \'{4}" +
+                            "\'", name, year, plot, actors, producer), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 45
+ testRunner.When("I tries to add movie to the list of movies", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 46
+ testRunner.Then("I should have an error \"Invalid arguments\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "year",
+                            "plot",
+                            "actors",
+                            "producer"});
+                table6.AddRow(new string[] {
+                            "movie1",
+                            "2000",
+                            "movie1 plot",
+                            "1",
+                            "1"});
+                table6.AddRow(new string[] {
+                            "movie2",
+                            "1998",
+                            "Movie2 plot",
+                            "1",
+                            "1"});
+#line 47
+ testRunner.And("List of movies should be like", ((string)(null)), table6, "And ");
 #line hidden
             }
             this.ScenarioCleanup();

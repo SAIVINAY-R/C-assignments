@@ -11,19 +11,19 @@ namespace IMDB.Repository
     public class MovieRepository : IMovieRepository
     {
         private readonly List<Movie> _movies = new List<Movie>();
-        public Movie AddMovie(Movie movie)
+        public Movie Add(Movie movie)
         {
             _movies.Add(movie);
             return movie;
         }
 
-        public Movie DeleteMovie(Movie movie)
+        public Movie Delete(Movie movie)
         {
             _movies.RemoveAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year);
             return movie;
         }
 
-        public List<Movie> ListMovies()
+        public List<Movie> Get()
         {
             return _movies;
         }
