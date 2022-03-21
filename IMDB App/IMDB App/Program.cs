@@ -44,10 +44,6 @@ while (true)
                     }
 
                 }
-                else
-                {
-                    Console.WriteLine("Movies List is empty");
-                }
                 break;
             case 2:
                 actors = iMDBService.GetActors();
@@ -107,16 +103,19 @@ while (true)
                 break;
             case 5:
                 var moviesList = iMDBService.GetMovies();
-                int k = 1;
-                foreach (var item in moviesList)
+                if (moviesList != null)
                 {
-                    Console.WriteLine("{0}. {1}", k++, item.Name);
+                    int k = 1;
+                    foreach (var item in moviesList)
+                    {
+                        Console.WriteLine("{0}. {1}", k++, item.Name);
+                    }
+                    int mvID = int.Parse(Console.ReadLine());
+                    iMDBService.DeleteMovie(mvID);
                 }
-                int mvID = int.Parse(Console.ReadLine());
-                iMDBService.DeleteMovie(mvID);
                 break;
             default:
-                Console.WriteLine("Invalid Input");
+                Console.WriteLine("Please enter a valid Option");
                 break;
         }
 

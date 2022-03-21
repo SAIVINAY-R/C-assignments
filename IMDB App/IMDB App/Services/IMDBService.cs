@@ -64,7 +64,7 @@ namespace IMDB_App.Services
             foreach (var id in actorIDs)
             {
                 var actorID = int.Parse(id);
-                if (actorID > actors.Count && actorID < 1)
+                if (actorID > actors.Count || actorID < 1)
                 {
                     throw new InvalidArgumentException("Invalid arguments");
                 }
@@ -73,7 +73,7 @@ namespace IMDB_App.Services
                     actorsList.Add(actorID);
                 }
             }
-            if (producerID > producers.Count && producerID < 1)
+            if (producerID > producers.Count || producerID < 1)
             {
                 Console.WriteLine("Enter the correct ProducerID");
                 throw new InvalidArgumentException("Invalid arguments");
@@ -134,6 +134,7 @@ namespace IMDB_App.Services
             var list = _movieRepository.Get();
             if (list.Count == 0)
             {
+                Console.WriteLine("Movies list is Empty");
                 return null;
             }
             return list;

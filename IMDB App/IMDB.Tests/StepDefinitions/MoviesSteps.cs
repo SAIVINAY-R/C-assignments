@@ -20,67 +20,13 @@ namespace IMDB.Tests.StepDefinitions
         private string[] _actorIDs;
         private List<Movie> _movies;
         private Exception _exception;
-
         public MoviesSteps()
         {
             _imdbService = new IMDBService();
         }
 
-        [Given(@"I have movies")]
-        public void GivenIHaveMovies()
-        {
-        }
-
-        [Given(@"I don't have movies")]
-        public void GivenIDontHaveMovies()
-        {
-        }
-
-        [When(@"I fetch the movies")]
-        public void WhenIFetchTheMovies()
-        {
-            _movies = _imdbService.GetMovies();
-        }
-
-        [Then(@"List of movies should be like")]
-        public void ThenListOfMoviesShouldBeLike(Table table)
-        {
-            var movies = _imdbService.GetMovies();
-            foreach (var row in table.Rows)
-            {
-                var actorIDs = row["actorIDs"].Split();
-                List<int> actorsList = new();
-                foreach (var id in actorIDs)
-                {
-                    var actorID = int.Parse(id);
-                    actorsList.Add(actorID);
-                }
-                Assert.Contains(movies, 
-                    b => b.Name == row["name"] && b.Year == int.Parse(row["year"]) &&
-                    b.Plot == row["plot"] && b.ProducerID == int.Parse(row["producerID"]) &&
-                    b.ActorIDs.SequenceEqual(actorsList.ToArray())
-                    );
-            }
-        }
-
-        [Then(@"get movies method should return null")]
-        public void ThenGetMoviesMethodShouldReturnNull()
-        {
-            Assert.Null(_movies);
-        }
-
-        [Given(@"A movie with")]
-        public void GivenAMovieWith(Table table)
-        {
-            _name = table.Rows[0]["name"];
-            _year = int.Parse(table.Rows[0]["year"]);
-            _plot = table.Rows[0]["plot"];
-            _actorIDs = table.Rows[0]["actors"].Split();
-            _producerID = int.Parse(table.Rows[0]["producer"]);
-        }
-
-        [When(@"I tries to add movie to the list of movies")]
-        public void WhenITriesToAddMovieToTheListOfMovies()
+        [When(@"I add the movie")]
+        public void WhenIAddTheMovie()
         {
             try
             {
@@ -92,15 +38,44 @@ namespace IMDB.Tests.StepDefinitions
             }
         }
 
-        [Given(@"A movie with Name: '([^']*)' Year: '([^']*)' Plot: '([^']*)' Actors: '([^']*)' and Producer: '([^']*)'")]
-        public void GivenAMovieWithNameYearPlotActorsAndProducer(string testName, string p1, string p2, string p3, string p4)
+        [Given(@"I want to see the movies")]
+        public void GivenIWantToSeeTheMovies()
         {
-            _name = testName;
+        }
+
+
+        [Given(@"the inputs are Name: '([^']*)' Year: '([^']*)' Plot: '([^']*)' Actors: '([^']*)' and Producer: '([^']*)'")]
+        public void GivenTheInputsAreNameYearPlotActorsAndProducer(string p0, string p1, string p2, string p3, string p4)
+        {
+            _name = p0;
             _year = int.Parse(p1);
             _plot = p2;
-            _actorIDs = p3.Split();
+            _actorIDs = p3.Split(",");
             _producerID = int.Parse(p4);
         }
+
+
+        [Then(@"List of movies should be like")]
+        public void ThenListOfMoviesShouldBeLike(Table table)
+        {
+            var movies = _imdbService.GetMovies();
+            foreach (var row in table.Rows)
+            {
+                var actorIDs = row["actorIDs"].Split(",");
+                List<int> actorsList = new();
+                foreach (var id in actorIDs)
+                {
+                    var actorID = int.Parse(id);
+                    actorsList.Add(actorID);
+                }
+                Assert.Contains(movies, 
+                   b => b.Name == row["name"] && b.Year == int.Parse(row["year"]) &&
+                    b.Plot == row["plot"] && b.ProducerID == int.Parse(row["producerID"]) &&
+                    b.ActorIDs.SequenceEqual(actorsList.ToArray())
+                    );
+            }
+        }
+
 
         [Then(@"I should have an error ""([^""]*)""")]
         public void ThenIShouldHaveAnError(string message)
