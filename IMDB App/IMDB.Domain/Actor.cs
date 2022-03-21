@@ -10,5 +10,11 @@ namespace IMDB.Domain
     {
         public string Name { get; set; }
         public DateOnly DOB { get; set; }
+
+        public Actor(string name, DateOnly DOB)
+        {
+            Name = name;
+            DOB = DOB;
+        }
     }
 }

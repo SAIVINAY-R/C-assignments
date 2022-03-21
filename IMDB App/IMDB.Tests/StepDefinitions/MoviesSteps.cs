@@ -18,7 +18,6 @@ namespace IMDB.Tests.StepDefinitions
         private string _name, _plot;
         private int _year, _producerID;
         private string[] _actorIDs;
-        private List<Movie> _movies;
         private Exception _exception;
         public MoviesSteps()
         {

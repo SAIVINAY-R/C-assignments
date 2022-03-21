@@ -28,12 +28,11 @@ namespace IMDB_App.Services
             {
                 throw new InvalidArgumentException("Invalid arguments");
             }
-            Actor actor = new Actor() { Name = name , DOB = DateOnly.ParseExact(DOB, "dd/MM/yyyy") };
+            Actor actor = new Actor(name , DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
             List<Actor> Actors = _actorRepository.Get();
             if (Actors.Any(a => a.Name == actor.Name && a.DOB == actor.DOB) || actor == null)
             {
-                Console.WriteLine("Actor already exists");
-                return null;
+                throw new Exception("Actor already exists");
             }
             Console.WriteLine("Actor added successfully");
             return _actorRepository.Add(actor);
@@ -78,12 +77,11 @@ namespace IMDB_App.Services
                 Console.WriteLine("Enter the correct ProducerID");
                 throw new InvalidArgumentException("Invalid arguments");
             }
-            var movie = new Movie() { Name = name, Year = year, Plot = plot, ActorIDs = actorsList.ToArray(), ProducerID = producerID };
+            var movie = new Movie(name, year, plot, actorsList.ToArray(), producerID);
             var Movies = _movieRepository.Get();
             if (Movies.Any(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year))
             {
-                Console.WriteLine("Movie already exists");
-                return null;
+                throw new Exception("Movie already exists");
             }
             Console.WriteLine("Movie added Sucessfully");
             return _movieRepository.Add(movie);
@@ -95,12 +93,11 @@ namespace IMDB_App.Services
             {
                 throw new ArgumentNullException("Invalid arguments");
             }
-            Producer producer = new Producer() { Name = name, DOB = DateOnly.ParseExact(DOB, "dd/MM/yyyy") };
+            Producer producer = new Producer(name, DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
             List<Producer> Producers = _producerRepository.Get();
-            if (Producers.FindAll(a => a.Name == producer.Name && a.DOB == producer.DOB).Count != 0 || producer == null)
+            if (Producers.Any(a => a.Name == producer.Name && a.DOB == producer.DOB) || producer == null)
             {
-                Console.WriteLine("Producer already exists");
-                return null;
+                throw new Exception("Producer already exists");
             }
             Console.WriteLine("Producer added sucessfully");
             return _producerRepository.Add(producer);
@@ -110,10 +107,9 @@ namespace IMDB_App.Services
         {
             var Movies = _movieRepository.Get();
             var movie = Movies.ElementAt(movieID - 1);
-            if (Movies.FindAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year).Count == 0)
+            if (!Movies.Any(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year))
             {
-                Console.WriteLine("Movie is not in the List");
-                return null;
+                throw new FileNotFoundException("Movie is not in the List");
             }
             Console.WriteLine("Movie deleted...");
             return _movieRepository.Delete(movie);
@@ -135,7 +131,6 @@ namespace IMDB_App.Services
             if (list.Count == 0)
             {
                 Console.WriteLine("Movies list is Empty");
-                return null;
             }
             return list;
         }
