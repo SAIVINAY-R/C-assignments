@@ -120,8 +120,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "name",
                             "year",
                             "plot",
-                            "actors",
-                            "producer"});
+                            "actorIDs",
+                            "producerID"});
                 table1.AddRow(new string[] {
                             "movie1",
                             "2000",
@@ -234,8 +234,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "name",
                             "year",
                             "plot",
-                            "actors",
-                            "producer"});
+                            "actorIDs",
+                            "producerID"});
                 table3.AddRow(new string[] {
                             "movie1",
                             "2000",
@@ -313,8 +313,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "name",
                             "year",
                             "plot",
-                            "actors",
-                            "producer"});
+                            "actorIDs",
+                            "producerID"});
                 table5.AddRow(new string[] {
                             "movie1",
                             "2000",
@@ -392,8 +392,8 @@ this.ScenarioInitialize(scenarioInfo);
                             "name",
                             "year",
                             "plot",
-                            "actors",
-                            "producer"});
+                            "actorIDs",
+                            "producerID"});
                 table6.AddRow(new string[] {
                             "movie1",
                             "2000",

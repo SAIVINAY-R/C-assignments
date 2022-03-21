@@ -30,7 +30,7 @@ namespace IMDB_App.Services
             }
             Actor actor = new Actor() { Name = name , DOB = DateOnly.ParseExact(DOB, "dd/MM/yyyy") };
             List<Actor> Actors = _actorRepository.Get();
-            if (Actors.FindAll(a => a.Name == actor.Name && a.DOB == actor.DOB).Count != 0 || actor == null)
+            if (Actors.Any(a => a.Name == actor.Name && a.DOB == actor.DOB) || actor == null)
             {
                 Console.WriteLine("Actor already exists");
                 return null;

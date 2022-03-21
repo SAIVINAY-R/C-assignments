@@ -46,7 +46,21 @@ namespace IMDB.Tests.StepDefinitions
         public void ThenListOfMoviesShouldBeLike(Table table)
         {
             var movies = _imdbService.GetMovies();
-            
+            foreach (var row in table.Rows)
+            {
+                var actorIDs = row["actorIDs"].Split();
+                List<int> actorsList = new();
+                foreach (var id in actorIDs)
+                {
+                    var actorID = int.Parse(id);
+                    actorsList.Add(actorID);
+                }
+                Assert.Contains(movies, 
+                    b => b.Name == row["name"] && b.Year == int.Parse(row["year"]) &&
+                    b.Plot == row["plot"] && b.ProducerID == int.Parse(row["producerID"]) &&
+                    b.ActorIDs.SequenceEqual(actorsList.ToArray())
+                    );
+            }
         }
 
         [Then(@"get movies method should return null")]
@@ -104,7 +118,7 @@ namespace IMDB.Tests.StepDefinitions
             _imdbService.AddProducer("producer1", "01/09/2000");
             _imdbService.AddProducer("producer2", "01/09/2000");
             _imdbService.AddMovie("movie1", 2000, "movie1 plot", actors, 1);
-            _imdbService.AddMovie("movie2", 2000, "Movie1 plot", actors, 1);
+            _imdbService.AddMovie("movie2", 1998, "Movie2 plot", actors, 1);
         }
     }
 }

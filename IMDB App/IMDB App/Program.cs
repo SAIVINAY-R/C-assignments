@@ -1,4 +1,6 @@
 ﻿using IMDB_App.Services;
+using IMDB_App.Exceptions;
+using IMDB.Domain;
 
 var iMDBService = new IMDBService();
 Console.Write("\t1) List Movies\n\t2) Add Movie\n\t3) Add Actor\n\t4) Add Producer\n\t5) Delete Movie\n\t6)Exit");
@@ -7,16 +9,28 @@ while (true)
     try
     {
         Console.WriteLine("\nWhat do you want to do?");
-        int option = int.Parse(Console.ReadLine());
-        var actors = iMDBService.GetActors();
-        var producers = iMDBService.GetProducers();
-        if (option == 6)
+        var option = Console.ReadLine();
+        if (String.IsNullOrWhiteSpace(option))
+        {
+            throw new ArgumentNullException();
+        }
+        var choice = 0;
+        int.TryParse(option, out choice);
+        if (choice == 0)
+        {
+            throw new ArgumentException();
+        }
+        List<Actor> actors;
+        List<Producer> producers;
+        if (choice == 6)
         {
             break;
         }
-        switch (option)
+        switch (choice)
         {
             case 1:
+                actors = iMDBService.GetActors();
+                producers = iMDBService.GetProducers();
                 var movies = iMDBService.GetMovies();
                 if (movies != null)
                 {
@@ -36,6 +50,8 @@ while (true)
                 }
                 break;
             case 2:
+                actors = iMDBService.GetActors();
+                producers = iMDBService.GetProducers();
                 if (actors.Count == 0 && producers.Count == 0)
                 {
                     Console.WriteLine("Actors List and Producer List are empty");
