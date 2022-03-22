@@ -9,13 +9,18 @@ while (true)
     try
     {
         Console.WriteLine("\nWhat do you want to do?");
-        var option = Console.ReadLine();
-        if (String.IsNullOrWhiteSpace(option))
+        var input = Console.ReadLine();
+        if (String.IsNullOrWhiteSpace(input))
         {
-            throw new ArgumentNullException("option can't be null or whitespace");
+            Console.WriteLine("option can't be empty");
+            continue;
         }
         var choice = 0;
-        int.TryParse(option, out choice);
+        if (!int.TryParse(input, out choice))
+        {
+            Console.WriteLine("Option should be integer only");
+            continue;
+        }
         List<Actor> actors;
         List<Producer> producers;
         if (choice == 6)
@@ -30,11 +35,11 @@ while (true)
                 var movies = iMDBService.GetMovies();
                 if (movies != null)
                 {
-                    foreach (var mv in movies)
+                    foreach (Movie movie in movies)
                     {
-                        Console.WriteLine("{0} ({1})\nPlot - {2}\nActors - {3}\nProducers - {4}\n", mv.Name, mv.Year,
-                        mv.Plot, String.Join(", ", actors.Where(b => mv.ActorIDs.Contains(actors.IndexOf(b) + 1)).Select(b => b.Name)),
-                        producers.ElementAt(mv.ProducerID - 1).Name);
+                        Console.WriteLine("{0} ({1})\nPlot - {2}\nActors - {3}\nProducers - {4}\n", movie.Name, movie.Year,
+                        movie.Plot, String.Join(", ", actors.Where(actor => movie.ActorIDs.Contains(actors.IndexOf(actor) + 1)).Select(actor => actor.Name)),
+                        producers.ElementAt(movie.ProducerID - 1).Name);
                     }
                 }
                 break;
@@ -60,18 +65,18 @@ while (true)
                 var name = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(name))
                 {
-                    Console.WriteLine("Name should not be null or whitespace");
+                    Console.WriteLine("Name should not be empty");
                     break;
                 }
                 Console.Write("Year of release: ");
-                var yr = Console.ReadLine();
-                if (String.IsNullOrWhiteSpace(yr))
+                input = Console.ReadLine();
+                if (String.IsNullOrWhiteSpace(input))
                 {
-                    Console.WriteLine("Year can't be null or white space");
+                    Console.WriteLine("Year of release should not be empty");
                     break;
                 }
                 var year = -1;
-                if (!int.TryParse(yr, out year))
+                if (!int.TryParse(input, out year))
                 {
                     Console.WriteLine("Year should be integer only");
                     break;
@@ -80,7 +85,7 @@ while (true)
                 var plot = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(plot))
                 {
-                    Console.WriteLine("Plot should not be null or whitespace");
+                    Console.WriteLine("Movie mush have a plot");
                     break;
                 }
                 Console.Write("\nChoose actor(s) \"eg: 1 2 3\": ");
@@ -93,43 +98,43 @@ while (true)
                 var actorIDs = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(actorIDs))
                 {
-                    Console.WriteLine("Actor IDs should not be null or whitespace");
+                    Console.WriteLine("Movie must have actor(s)");
                     break;
                 }
-                Console.Write("Choose Producer: ");
+                Console.Write("Choose a Producer: ");
                 i = 1;
                 foreach (var producer in producers)
                 {
                     Console.Write("{0}. {1} ", i++, producer.Name);
                 }
                 Console.WriteLine();
-                var pID = Console.ReadLine();
-                if (String.IsNullOrWhiteSpace(pID))
+                input = Console.ReadLine();
+                if (String.IsNullOrWhiteSpace(input))
                 {
-                    Console.WriteLine("Producer ID should not be null or whitespace");
+                    Console.WriteLine("A movie must have a producer");
                     break;
                 }
                 var producerID = 0;
-                if (!int.TryParse(pID, out producerID))
+                if (!int.TryParse(input, out producerID))
                 {
                     Console.WriteLine("Given producer ID is not integer type");
                     break;
                 }
-                var movie = iMDBService.AddMovie(name, year, plot, actorIDs.Trim().Split(), producerID);
+                iMDBService.AddMovie(name, year, plot, actorIDs.Trim().Split(), producerID);
                 break;
             case 3:
                 Console.Write("Name: ");
                 var actorName = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(actorName))
                 {
-                    Console.WriteLine("Actor name should not be null or whitespace");
+                    Console.WriteLine("Actor name should not be empty");
                     break;
                 }
                 Console.Write("DOB (dd/MM/yyyy): ");
                 var date = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(date))
                 {
-                    Console.WriteLine("Date of birth should not be null or whitespace");
+                    Console.WriteLine("Date of birth should not be empty");
                     break;
                 }
                 iMDBService.AddActor(actorName.Trim(), date.Trim());
@@ -139,17 +144,17 @@ while (true)
                 var producerName = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(producerName))
                 {
-                    Console.WriteLine("Producer name should not be null or whitespace");
+                    Console.WriteLine("Producer name should not be empty");
                     break;
                 }
                 Console.Write("DOB (dd/MM/yyyy): ");
                 var dob = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(dob))
                 {
-                    Console.WriteLine("Date of birth should not be null or whitespace");
+                    Console.WriteLine("Date of birth should not be empty");
                     break;
                 }
-                var producerObj = iMDBService.AddProducer(producerName.Trim(), dob.Trim());
+                iMDBService.AddProducer(producerName.Trim(), dob.Trim());
                 break;
             case 5:
                 var moviesList = iMDBService.GetMovies();
@@ -160,19 +165,20 @@ while (true)
                     {
                         Console.WriteLine("{0}. {1}", k++, item.Name);
                     }
-                    var id = Console.ReadLine();
-                    if (String.IsNullOrWhiteSpace(id))
+                    Console.WriteLine("Select a movie to delete : ");
+                    input = Console.ReadLine();
+                    if (String.IsNullOrWhiteSpace(input))
                     {
-                        Console.WriteLine("Movie Id should not be null or whitespace");
+                        Console.WriteLine("Movie Id should not be empty");
                         break;
                     }
-                    var mvID = 0;
-                    if (!int.TryParse(id, out mvID))
+                    int movieID;
+                    if (!int.TryParse(input, out movieID))
                     {
                         Console.WriteLine("Given Movie Id is not integer");
                         break;
                     }
-                    iMDBService.DeleteMovie(mvID);
+                    iMDBService.DeleteMovie(movieID);
                 }
                 break;
             default:

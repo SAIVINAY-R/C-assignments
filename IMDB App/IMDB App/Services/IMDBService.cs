@@ -40,22 +40,23 @@ namespace IMDB_App.Services
 
         public Movie AddMovie(string name, int year, string plot, string[] actorIDs, int producerID)
         {
+            bool argumentException = false;
             if (String.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Movie name is empty");
-                throw new InvalidArgumentException("Invalid arguments");
+                argumentException = true;
             }
             if (String.IsNullOrEmpty(plot))
             {
                 Console.WriteLine("Movie Plot is empty");
-                throw new InvalidArgumentException("Invalid arguments");
+                argumentException |= true;
             }
             // the first film was released in 1888 so minimum year is 1888
             // maximum upcoming movies release date will be planed for 2 years from current year
             if (year > (DateTime.Now.Year + 2) || year < 1888)
             {
                 Console.WriteLine("Year should be between {0} and {1}", 1888, (DateTime.Now.Year + 2));
-                throw new InvalidArgumentException("Invalid arguments");
+                argumentException |= true;
             }
             var actors = _actorRepository.Get();
             var producers = _producerRepository.Get();
@@ -65,16 +66,21 @@ namespace IMDB_App.Services
                 var actorID = int.Parse(id);
                 if (actorID > actors.Count || actorID < 1)
                 {
-                    throw new InvalidArgumentException("Invalid arguments");
+                    Console.WriteLine("actor ID {0} is not in the actors list", actorID);
+                    argumentException |= true;
                 }
-                if (!actorsList.Any(b => b.Equals(actorID)))
+                if (!actorsList.Any(actorId => actorId.Equals(actorID)))
                 {
                     actorsList.Add(actorID);
                 }
             }
             if (producerID > producers.Count || producerID < 1)
             {
-                Console.WriteLine("Enter the correct ProducerID");
+                Console.WriteLine("producer ID {0} is not in the producers list", producerID);
+                argumentException |= true;
+            }
+            if (argumentException)
+            {
                 throw new InvalidArgumentException("Invalid arguments");
             }
             var movie = new Movie(name, year, plot, actorsList.ToArray(), producerID);
@@ -91,7 +97,7 @@ namespace IMDB_App.Services
         {
             if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(DOB))
             {
-                throw new ArgumentNullException("Invalid arguments");
+                throw new InvalidArgumentException("Invalid arguments");
             }
             Producer producer = new Producer(name, DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
             List<Producer> Producers = _producerRepository.Get();
@@ -105,12 +111,12 @@ namespace IMDB_App.Services
 
         public Movie DeleteMovie(int movieID)
         {
-            var Movies = _movieRepository.Get();
-            var movie = Movies.ElementAt(movieID - 1);
-            if (!Movies.Any(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year))
+            var movies = _movieRepository.Get();
+            if (movieID > movies.Count || movieID < 1)
             {
                 throw new FileNotFoundException("Movie is not in the List");
             }
+            var movie = movies.ElementAt(movieID - 1);
             Console.WriteLine("Movie deleted...");
             return _movieRepository.Delete(movie);
         }
@@ -127,12 +133,12 @@ namespace IMDB_App.Services
 
         public List<Movie> GetMovies()
         {
-            var list = _movieRepository.Get();
-            if (list.Count == 0)
+            var movies = _movieRepository.Get();
+            if (movies.Count == 0)
             {
                 Console.WriteLine("Movies list is Empty");
             }
-            return list;
+            return movies;
         }
     }
 }
