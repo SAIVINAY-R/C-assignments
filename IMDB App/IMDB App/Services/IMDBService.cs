@@ -28,14 +28,14 @@ namespace IMDB_App.Services
             {
                 throw new InvalidArgumentException("Invalid arguments");
             }
-            Actor actor = new Actor(name , DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
+            Actor newActor = new Actor(name , DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
             List<Actor> Actors = _actorRepository.Get();
-            if (Actors.Any(a => a.Name == actor.Name && a.DOB == actor.DOB) || actor == null)
+            if (Actors.Any(actor => actor.Name == newActor.Name && actor.DOB == newActor.DOB) || newActor == null)
             {
                 throw new Exception("Actor already exists");
             }
             Console.WriteLine("Actor added successfully");
-            return _actorRepository.Add(actor);
+            return _actorRepository.Add(newActor);
         }
 
         public Movie AddMovie(string name, int year, string plot, string[] actorIDs, int producerID)
@@ -83,14 +83,14 @@ namespace IMDB_App.Services
             {
                 throw new InvalidArgumentException("Invalid arguments");
             }
-            var movie = new Movie(name, year, plot, actorsList.ToArray(), producerID);
-            var Movies = _movieRepository.Get();
-            if (Movies.Any(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year))
+            var newMovie = new Movie(name, year, plot, actorsList.ToArray(), producerID);
+            var movies = _movieRepository.Get();
+            if (movies.Any(movie => movie.Name == newMovie.Name && movie.Plot == newMovie.Plot && movie.Year == newMovie.Year))
             {
                 throw new Exception("Movie already exists");
             }
             Console.WriteLine("Movie added Sucessfully");
-            return _movieRepository.Add(movie);
+            return _movieRepository.Add(newMovie);
         }
 
         public Producer AddProducer(string name, string DOB)
@@ -99,14 +99,14 @@ namespace IMDB_App.Services
             {
                 throw new InvalidArgumentException("Invalid arguments");
             }
-            Producer producer = new Producer(name, DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
+            Producer newProducer = new Producer(name, DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
             List<Producer> Producers = _producerRepository.Get();
-            if (Producers.Any(a => a.Name == producer.Name && a.DOB == producer.DOB) || producer == null)
+            if (Producers.Any(producer => producer.Name == newProducer.Name && producer.DOB == newProducer.DOB) || newProducer == null)
             {
                 throw new Exception("Producer already exists");
             }
             Console.WriteLine("Producer added sucessfully");
-            return _producerRepository.Add(producer);
+            return _producerRepository.Add(newProducer);
         }
 
         public Movie DeleteMovie(int movieID)
