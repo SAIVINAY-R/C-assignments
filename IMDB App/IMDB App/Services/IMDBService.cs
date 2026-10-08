@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using IMDB.Domain;
+using IMDB.Repository;
+using IMDB.Repository.Interfaces;
+using IMDB_App.Services.Interfaces;
+
+namespace IMDB_App.Services
+{
+    public class IMDBService : IIMDBService
+    {
+        private readonly IMovieRepository _movieRepository;
+        private readonly IActorRepository _actorRepository;
+        private readonly IProducerRepository _producerRepository;
+        public IMDBService()
+        {
+            _movieRepository = new MovieRepository();
+            _actorRepository = new ActorRepository();
+            _producerRepository = new ProducerRepository();
+        }
+
+        public Actor AddActor(string name, string DOB)
+        {
+            if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(DOB))
+            {
+                throw new ArgumentNullException("Invalid arguments");
+            }
+            Actor actor = new Actor() { Name = name , DOB = DateOnly.ParseExact(DOB, "dd/MM/yyyy") };
+            List<Actor> Actors = _actorRepository.GetActors();
+            if (Actors.FindAll(a => a.Name == actor.Name && a.DOB == actor.DOB).Count != 0 || actor == null)
+            {
+                return null;
+            }
+            return _actorRepository.AddActor(actor);
+        }
+
+        public Movie AddMovie(string name, int year, string plot, string[] actorID, int producerID)
+        {
+            List<Actor> Actors = _actorRepository.GetActors();
+            List<string> actorsList = new();
+            foreach (var id in actorID)
+            {
+                var actor = Actors.ElementAt(int.Parse(id) - 1).Name;
+                actorsList.Add(actor);
+            }
+            var Producers = _producerRepository.GetProducerList();
+            var producerName = Producers.ElementAt(producerID - 1).Name;
+            var movie = new Movie() { Name = name, Year = year, Plot = plot, Actors = actorsList, Producer = producerName };
+            if (movie.Actors == null ||
+                String.IsNullOrEmpty(movie.Name) ||
+                String.IsNullOrEmpty(movie.Plot) ||
+                movie.Producer == null ||
+                movie.Year > 9999 || movie.Year < 1000)
+            {
+                return null;
+            }
+            var Movies = _movieRepository.ListMovies();
+            if (Movies.FindAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year).Count != 0)
+            {
+                return null;
+            }
+            return _movieRepository.AddMovie(movie);
+        }
+
+        public Producer AddProducer(string name, string DOB)
+        {
+            if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(DOB))
+            {
+                throw new ArgumentNullException("Invalid arguments");
+            }
+            Producer producer = new Producer() { Name = name, DOB = DateOnly.ParseExact(DOB, "dd/MM/yyyy") };
+            List<Producer> Producers = _producerRepository.GetProducerList();
+            if (Producers.FindAll(a => a.Name == producer.Name && a.DOB == producer.DOB).Count != 0 || producer == null)
+            {
+                return null;
+            }
+            return _producerRepository.AddProducer(producer);
+        }
+
+        public Movie DeleteMovie(int movieID)
+        {
+            var Movies = _movieRepository.ListMovies();
+            var movie = Movies.ElementAt(movieID);
+            if (Movies.FindAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year).Count == 0)
+            {
+                return null;
+            }
+            return _movieRepository.DeleteMovie(movie);
+        }
+
+        public List<Actor> GetActors()
+        {
+            return _actorRepository.GetActors(); 
+        }
+
+        public List<Producer> GetProducerList()
+        {
+            return _producerRepository.GetProducerList();
+        }
+
+        public List<Movie> ListMovies()
+        {
+            var list = _movieRepository.ListMovies();
+            if (list.Count == 0)
+            {
+                return null;
+            }
+            return list;
+        }
+    }
+}
