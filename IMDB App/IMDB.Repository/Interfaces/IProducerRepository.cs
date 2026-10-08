@@ -9,7 +9,7 @@ namespace IMDB.Repository.Interfaces
 {
     public interface IProducerRepository
     {
-        public Producer AddProducer(Producer producer);
-        public List<Producer> GetProducerList();
+        public Producer Add(Producer producer);
+        public List<Producer> Get();
     }
 }

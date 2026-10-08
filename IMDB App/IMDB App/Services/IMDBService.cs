@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using IMDB.Domain;
 using IMDB.Repository;
 using IMDB.Repository.Interfaces;
-using IMDB_App.Services.Interfaces;
+using IMDB_App.Exceptions;
 
 namespace IMDB_App.Services
 {
-    public class IMDBService : IIMDBService
+    public class IMDBService : Interfaces.IMDBService
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IActorRepository _actorRepository;
@@ -26,89 +26,119 @@ namespace IMDB_App.Services
         {
             if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(DOB))
             {
-                throw new ArgumentNullException("Invalid arguments");
+                throw new InvalidArgumentException("Invalid arguments");
             }
-            Actor actor = new Actor() { Name = name , DOB = DateOnly.ParseExact(DOB, "dd/MM/yyyy") };
-            List<Actor> Actors = _actorRepository.GetActors();
-            if (Actors.FindAll(a => a.Name == actor.Name && a.DOB == actor.DOB).Count != 0 || actor == null)
+            Actor newActor = new Actor(name , DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
+            List<Actor> Actors = _actorRepository.Get();
+            if (Actors.Any(actor => actor.Name == newActor.Name && actor.DOB == newActor.DOB) || newActor == null)
             {
-                return null;
+                throw new Exception("Actor already exists");
             }
-            return _actorRepository.AddActor(actor);
+            Console.WriteLine("Actor added successfully");
+            return _actorRepository.Add(newActor);
         }
 
-        public Movie AddMovie(string name, int year, string plot, string[] actorID, int producerID)
+        public Movie AddMovie(string name, int year, string plot, string[] actorIDs, int producerID)
         {
-            List<Actor> Actors = _actorRepository.GetActors();
-            List<string> actorsList = new();
-            foreach (var id in actorID)
+            bool argumentException = false;
+            if (String.IsNullOrEmpty(name))
             {
-                var actor = Actors.ElementAt(int.Parse(id) - 1).Name;
-                actorsList.Add(actor);
+                Console.WriteLine("Movie name is empty");
+                argumentException = true;
             }
-            var Producers = _producerRepository.GetProducerList();
-            var producerName = Producers.ElementAt(producerID - 1).Name;
-            var movie = new Movie() { Name = name, Year = year, Plot = plot, Actors = actorsList, Producer = producerName };
-            if (movie.Actors == null ||
-                String.IsNullOrEmpty(movie.Name) ||
-                String.IsNullOrEmpty(movie.Plot) ||
-                movie.Producer == null ||
-                movie.Year > 9999 || movie.Year < 1000)
+            if (String.IsNullOrEmpty(plot))
             {
-                return null;
+                Console.WriteLine("Movie Plot is empty");
+                argumentException |= true;
             }
-            var Movies = _movieRepository.ListMovies();
-            if (Movies.FindAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year).Count != 0)
+            // the first film was released in 1888 so minimum year is 1888
+            // maximum upcoming movies release date will be planed for 2 years from current year
+            if (year > (DateTime.Now.Year + 2) || year < 1888)
             {
-                return null;
+                Console.WriteLine("Year should be between {0} and {1}", 1888, (DateTime.Now.Year + 2));
+                argumentException |= true;
             }
-            return _movieRepository.AddMovie(movie);
+            var actors = _actorRepository.Get();
+            var producers = _producerRepository.Get();
+            List<int> actorsList = new();
+            foreach (var id in actorIDs)
+            {
+                var actorID = int.Parse(id);
+                if (actorID > actors.Count || actorID < 1)
+                {
+                    Console.WriteLine("actor ID {0} is not in the actors list", actorID);
+                    argumentException |= true;
+                }
+                if (!actorsList.Any(actorId => actorId.Equals(actorID)))
+                {
+                    actorsList.Add(actorID);
+                }
+            }
+            if (producerID > producers.Count || producerID < 1)
+            {
+                Console.WriteLine("producer ID {0} is not in the producers list", producerID);
+                argumentException |= true;
+            }
+            if (argumentException)
+            {
+                throw new InvalidArgumentException("Invalid arguments");
+            }
+            var newMovie = new Movie(name, year, plot, actorsList.ToArray(), producerID);
+            var movies = _movieRepository.Get();
+            if (movies.Any(movie => movie.Name == newMovie.Name && movie.Plot == newMovie.Plot && movie.Year == newMovie.Year))
+            {
+                throw new Exception("Movie already exists");
+            }
+            Console.WriteLine("Movie added Sucessfully");
+            return _movieRepository.Add(newMovie);
         }
 
         public Producer AddProducer(string name, string DOB)
         {
             if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(DOB))
             {
-                throw new ArgumentNullException("Invalid arguments");
+                throw new InvalidArgumentException("Invalid arguments");
             }
-            Producer producer = new Producer() { Name = name, DOB = DateOnly.ParseExact(DOB, "dd/MM/yyyy") };
-            List<Producer> Producers = _producerRepository.GetProducerList();
-            if (Producers.FindAll(a => a.Name == producer.Name && a.DOB == producer.DOB).Count != 0 || producer == null)
+            Producer newProducer = new Producer(name, DateOnly.ParseExact(DOB, "dd/MM/yyyy"));
+            List<Producer> Producers = _producerRepository.Get();
+            if (Producers.Any(producer => producer.Name == newProducer.Name && producer.DOB == newProducer.DOB) || newProducer == null)
             {
-                return null;
+                throw new Exception("Producer already exists");
             }
-            return _producerRepository.AddProducer(producer);
+            Console.WriteLine("Producer added sucessfully");
+            return _producerRepository.Add(newProducer);
         }
 
         public Movie DeleteMovie(int movieID)
         {
-            var Movies = _movieRepository.ListMovies();
-            var movie = Movies.ElementAt(movieID);
-            if (Movies.FindAll(b => b.Name == movie.Name && b.Plot == movie.Plot && b.Year == movie.Year).Count == 0)
+            var movies = _movieRepository.Get();
+            if (movieID > movies.Count || movieID < 1)
             {
-                return null;
+                throw new FileNotFoundException("Movie is not in the List");
             }
-            return _movieRepository.DeleteMovie(movie);
+            var movie = movies.ElementAt(movieID - 1);
+            Console.WriteLine("Movie deleted...");
+            return _movieRepository.Delete(movie);
         }
 
         public List<Actor> GetActors()
         {
-            return _actorRepository.GetActors(); 
+            return _actorRepository.Get(); 
         }
 
-        public List<Producer> GetProducerList()
+        public List<Producer> GetProducers()
         {
-            return _producerRepository.GetProducerList();
+            return _producerRepository.Get();
         }
 
-        public List<Movie> ListMovies()
+        public List<Movie> GetMovies()
         {
-            var list = _movieRepository.ListMovies();
-            if (list.Count == 0)
+            var movies = _movieRepository.Get();
+            if (movies.Count == 0)
             {
-                return null;
+                Console.WriteLine("Movies list is Empty");
             }
-            return list;
+            return movies;
         }
     }
 }

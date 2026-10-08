@@ -8,7 +8,13 @@ namespace IMDB.Domain
 {
     public class Producer
     {
-        public string Name;
-        public DateOnly DOB;
+        public string Name { get; set; }
+        public DateOnly DOB{ get; set; }
+
+        public Producer(string name,DateOnly dob)
+        {
+            Name = name;
+            DOB = dob;
+        }
     }
 }

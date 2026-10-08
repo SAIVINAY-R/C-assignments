@@ -7,14 +7,14 @@ using IMDB.Domain;
 
 namespace IMDB_App.Services.Interfaces
 {
-    internal interface IIMDBService
+    public interface IMDBService
     {
-        public List<Movie> ListMovies();
+        public List<Movie> GetMovies();
         public Movie AddMovie(string name, int year, string plot, string[] actorID, int producerID);
         public Movie DeleteMovie(int movieID);
         public Actor AddActor(string name, string DOB);
         public Producer AddProducer(string name, string DOB);
         public List<Actor> GetActors();
-        public List<Producer> GetProducerList();
+        public List<Producer> GetProducers();
     }
 }

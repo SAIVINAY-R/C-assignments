@@ -9,8 +9,8 @@ namespace IMDB.Repository.Interfaces
 {
     public interface IMovieRepository
     {
-        public List<Movie> ListMovies();
-        public Movie AddMovie(Movie movie);
-        public Movie DeleteMovie(Movie movie);
+        public List<Movie> Get();
+        public Movie Add(Movie movie);
+        public Movie Delete(Movie movie);
     }
 }
